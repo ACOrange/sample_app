@@ -44,14 +44,14 @@ describe "Authentication" do
     end
   end
   
-  describe "Authorization" do
+  describe "authorization" do
     
     describe "for non-signed-in users" do
       let(:user) { FactoryGirl.create(:user) }
       
       describe "when attempting to visit a protected page" do
         before do
-          visit edit_user-path(user)
+          visit edit_user_path(user)
           fill_in "Email", with: user.email
           fill_in "Password", with: user.password
           click_button "Sign in"
@@ -85,7 +85,7 @@ describe "Authentication" do
     
     describe "as wrong user" do
       let(:user) {FactoryGirl.create(:user)}
-      let(:wrong_user) {FactoryGirl.create(:user, email: "wrong@example")}
+      let(:wrong_user) {FactoryGirl.create(:user, email: "wrong@example.com")}
       before { sign_in user }
       
       describe "visiting Users#edit page" do
@@ -108,7 +108,7 @@ describe "Authentication" do
       describe "submitting a DELETE request to the Users#destroy action" do
         before { delete user_path(user) }
         
-        specify { response.should redirect_to(root-path) }
+        specify { response.should redirect_to(root_path) }
       end
     end
   end
